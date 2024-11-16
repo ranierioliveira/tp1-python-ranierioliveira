@@ -9,6 +9,7 @@ def exibir_menu():
   print("3 - Verifica popularidade")
   print("4 - Exibir todos os perfis")
   print("5 - Top 5 perfis marcados como amigos")
+  print("6 - Lista amigos exclusivos")
   print("12 - Encerrar escolha de opções")
   
 def lista_em_dicionarios(lista):
@@ -60,7 +61,8 @@ def insere_base_inicial():
         linhas = arquivo.readlines()
         novos_dados = []
         for linha in linhas:
-            novos_dados.append(linha.strip().split('?'))
+            if linha != linhas[0]:
+                novos_dados.append(linha.strip().split('?'))
         base_inicial_formatada = lista_em_dicionarios(novos_dados)
         perfis_validos.extend(valida_perfis(base_inicial_formatada))
         
@@ -160,6 +162,34 @@ def adiciona_amigo(nome, amigo, perfis):
             print(f"\n{amigo} adicionado a lista de amigos de {nome.capitalize()} com sucesso!\n")
     return perfis
 
+def identifica_amigos_exclusivos(perfis):
+    '''
+    Esta função identifica os amigos exclusivos de cada usuário
+    
+    Parâmetro:
+    perfis (list): lista de perfis da rede
+    
+    Retorna:
+    'Printa' aqueles itens que tem amigos exclusivos
+    '''   
+    amigos_exclusivos = {}
+    
+    for perfil_atual in perfis:
+        amigos_comuns = set()
+        
+        #vai iterar novamente e selecionar os que são diferente ao que está sendo analisado
+        for outro_perfil in perfis:
+            if outro_perfil != perfil_atual:
+                #transforma os amigos atuais em um set e adiona os comuns no set criado anteriormente
+                amigos_comuns.update(set(perfil_atual["amigos"]).intersection(outro_perfil["amigos"]))
+        
+        exclusivos = set(perfil_atual["amigos"]) - amigos_comuns
+        #adicionando ao dicionário
+        amigos_exclusivos[perfil_atual["nome"]] = list(exclusivos)
+        
+    for nome, exclusivos in amigos_exclusivos.items():
+        if exclusivos:
+            print(f"{nome} tem os seguintes amigos exclusivos: {', '.join(exclusivos) if exclusivos else 'Nenhum amigo exclusivo encontrado'}")
     
 usuarios = [
     ['Ranieri', 22, 'Campinas', 'SP'],
@@ -176,6 +206,7 @@ perfis_validos = valida_perfis(perfis)
 insere_base_inicial()
 perfis_validos[1]["amigos"].append("Lizandra")#Adicionando um amigo a um usuário
 atualiza_perfis_no_arquivo(perfis_validos)
+
 
 
 while True:
@@ -206,6 +237,9 @@ while True:
     top_5 = top_5_amigos(perfis_validos)
     for amigo, quantidade in top_5:
         print(f"{amigo.title()} com {quantidade} amigo(s)")
+        
+   elif opcao == "6":
+        identifica_amigos_exclusivos(perfis_validos)
    
    elif opcao == "12":
     print("\nMenu encerrado!")

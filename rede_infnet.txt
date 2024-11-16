@@ -3,7 +3,6 @@ Maria: Idade 20, Cidade Jaguaríuna, Estado SP, Amigos: Lizandra
 João: Idade 32, Cidade Hortolândia, Estado SP, Amigos: Sem amigos cadastrados
 Geovana: Idade 21, Cidade Sumaré, Estado SP, Amigos: Sem amigos cadastrados
 Jorge: Idade 28, Cidade Valinhos, Estado SP, Amigos: Sem amigos cadastrados
-nome: Idade idade, Cidade cidade, Estado estado, Amigos: amigos
 João: Idade 25, Cidade Rio de Janeiro, Estado RJ, Amigos: Ana, Carlos, Marcos
 Ana: Idade 22, Cidade São Paulo, Estado SP, Amigos: João, Fernanda
 Carlos: Idade 30, Cidade Belo Horizonte, Estado MG, Amigos: João, Marcos, Caio
